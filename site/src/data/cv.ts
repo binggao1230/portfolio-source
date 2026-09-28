@@ -1,5 +1,19 @@
 export type CvLocale = 'en';
 
+export type CvDownloadLanguage = 'en' | 'fr';
+
+export interface CvDownload {
+  lang: CvDownloadLanguage;
+  label: string;
+  url: string;
+}
+
+/** Canonical PDF editions; the first entry is the no-JavaScript default. */
+export const cvDownloads: CvDownload[] = [
+  { lang: 'en', label: 'English CV', url: '/cv/Bing_GAO_CV_EN.pdf' },
+  { lang: 'fr', label: 'French CV', url: '/cv/Bing_GAO_CV_FR.pdf' },
+];
+
 export interface CvContent {
   locale: CvLocale;
   route: string;
@@ -10,8 +24,7 @@ export interface CvContent {
   portraitAlt: string;
   role: string;
   summary: string;
-  downloadLabel: string;
-  downloadUrl: string;
+  downloads: CvDownload[];
   contactLabel: string;
   languageNavigationLabel: string;
   contactNavigationLabel: string;
@@ -68,8 +81,7 @@ const english: CvContent = {
   portraitAlt: 'Bing Gao in the Faroe Islands',
   role: 'Computational Mechanics Engineering Student / Fluid Simulation, Thermal Systems & Engineering Software',
   summary: 'Engineer with nearly 7 years in mobile software development and technical leadership, now applying experience from a product serving more than 2 million users to fluid simulation, finite-element analysis, thermal modelling, and numerical verification while completing a French engineering degree.',
-  downloadLabel: 'PDF',
-  downloadUrl: '/cv/CV_Bing_GAO.pdf',
+  downloads: cvDownloads,
   contactLabel: 'Contact me',
   languageNavigationLabel: 'CV language',
   contactNavigationLabel: 'Contact information',

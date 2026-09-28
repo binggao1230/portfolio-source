@@ -176,6 +176,18 @@ const structuredData = {
         Copyright © 2026 Bing Gao. All rights reserved.
       </footer>
     </main>
+    <script is:inline>
+      // CV download default: English browsers get the English edition, everything else French.
+      (() => {
+        const buttons = document.querySelectorAll('[data-cv-download]');
+        if (!buttons.length) return;
+        const tag = ((navigator.languages && navigator.languages[0]) || navigator.language || 'en').toLowerCase();
+        const preferred = tag.startsWith('en') ? 'en' : 'fr';
+        buttons.forEach((button) => {
+          button.classList.toggle('is-default', button.dataset.cvDownload === preferred);
+        });
+      })();
+    </script>
     <script
       is:inline
       defer

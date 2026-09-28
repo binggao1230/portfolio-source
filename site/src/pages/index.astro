@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { profile } from '../data/profile';
+import { cvDownloads } from '../data/cv';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort(
@@ -31,14 +32,17 @@ const paddockCV = {
         <div>
           <p class="font-serif text-xs uppercase tracking-[0.12em] text-stone">About Me</p>
           <h1 id="about-heading" class="mt-1 text-4xl font-medium tracking-tight text-ink sm:text-5xl">Bing Gao</h1>
-          <nav class="mt-4 flex items-center gap-2" aria-label="Profile links">
-            <a
-              href="/cv/CV_Bing_GAO.pdf"
-              target="_blank"
-              class="inline-flex h-9 items-center justify-center rounded-full border border-accent bg-accent px-3 text-sm font-semibold text-white transition-opacity hover:opacity-75"
-            >
-              Download CV
-            </a>
+          <nav class="mt-4 flex flex-wrap items-center gap-2" aria-label="Profile links">
+            {cvDownloads.map((download, index) => (
+              <a
+                href={download.url}
+                download
+                lang={download.lang}
+                hreflang={download.lang}
+                data-cv-download={download.lang}
+                class:list={['cv-pill', index === 0 && 'is-default']}
+              >{download.label}</a>
+            ))}
             <a
               href={profile.github}
               target="_blank"
@@ -154,6 +158,29 @@ const paddockCV = {
 </Base>
 
 <style>
+  .cv-pill {
+    display: inline-flex;
+    height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-accent);
+    border-radius: 999px;
+    padding-inline: 0.75rem;
+    color: var(--color-accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: opacity 150ms ease, background-color 150ms ease, color 150ms ease;
+  }
+
+  .cv-pill.is-default {
+    color: #fff;
+    background: var(--color-accent);
+  }
+
+  .cv-pill:hover {
+    opacity: 0.75;
+  }
+
   .about-copy a {
     color: var(--color-accent);
     text-decoration: underline;

@@ -23,7 +23,16 @@ const alternates = [{ hreflang: 'en', path: '/cv' }];
           </nav>
         </div>
         <div class="cv-actions print-hidden">
-          <a class="cv-action cv-action-primary" href={content.downloadUrl}>{content.downloadLabel}</a>
+          {content.downloads.map((download, index) => (
+            <a
+              class:list={['cv-action', index === 0 && 'is-default']}
+              data-cv-download={download.lang}
+              lang={download.lang}
+              hreflang={download.lang}
+              href={download.url}
+              download
+            >{download.label}</a>
+          ))}
           <a class="cv-action cv-action-ghost" href={`mailto:${content.contact.email}`}>{content.contactLabel}</a>
         </div>
       </div>
@@ -227,6 +236,7 @@ const alternates = [{ hreflang: 'en', path: '/cv' }];
     padding: 0.6rem 1rem;
     border: 1px solid var(--color-accent);
     border-radius: 999px;
+    color: var(--color-accent);
     font-family: var(--font-serif);
     font-size: 0.9rem;
     font-weight: 500;
@@ -236,7 +246,7 @@ const alternates = [{ hreflang: 'en', path: '/cv' }];
     transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
   }
 
-  .cv-action-primary {
+  .cv-action.is-default {
     color: var(--color-bg);
     background: var(--color-accent);
   }
