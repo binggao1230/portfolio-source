@@ -3,8 +3,8 @@
 The public repository mirrors the deployed site: everything tracked on `main` either ships to
 `binggao.dev` or is required to build and verify it. Nothing else is published.
 
-- `main`: the public GitHub branch. It keeps the full publishable history for site content, UI changes, and deployment configuration.
-- `work`: the private working branch. It may contain research, design notes, experiments, private source material, and other work that is not meant for public GitHub.
+- `main`: the public GitHub branch and the only maintained line. It keeps the full publishable history for site content, UI changes, and deployment configuration.
+- Private material lives outside this repository. The former private `work` branch is archived offline and is no longer maintained.
 
 ## What belongs on `main`
 
@@ -18,9 +18,9 @@ Publish only what the deployed site needs:
 - `LICENSE` — public license.
 - `.github/` — public CI or workflow configuration required for the public repository.
 
-## What stays on `work`
+## What stays out of this repository
 
-Keep local or private material on `work` only:
+Keep local or private material out of `main`:
 
 - `site/src/content/projects-cn/` — Chinese source documents. They are source material for a
   language the site does not serve, so they are never tracked on `main`.
@@ -34,18 +34,17 @@ Keep local or private material on `work` only:
 ## Daily workflow
 
 1. Commit publishable article edits, UI changes, and deployment configuration as separate commits on `main`.
-2. Keep Chinese source documents on `work`; never add that directory, or any other undeployed content set, to `main`.
-3. Use `work` for private research, experiments, and internal tooling.
+2. Never add Chinese source documents, or any other undeployed content set, to `main`.
+3. Keep private research, experiments, and internal tooling outside this repository.
 4. Push `main` without squashing or rewriting its shared history.
 
 ## Rules
 
-- Do not push `work` to the public GitHub repository.
+- Do not create or push private branches in this repository.
 - Do not include private tooling, private notes, or non-public research sources in `main`.
 - The public repository must not serve content the deployed site does not publish.
 - Do not squash or rewrite shared `main` history; article, UI, and deployment commits remain individually visible.
 
 ## Current branch layout
 
-- `main` — public site source, public Chinese documents, and publishable development history; pushed to `origin/main`.
-- `work` — private research and working material; kept locally.
+- `main` — public site source and publishable development history; pushed to `origin/main`.
