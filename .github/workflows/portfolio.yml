@@ -17,6 +17,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check public surface
+        run: |
+          if [ -n "$(git ls-files site/src/content/projects-cn)" ]; then
+            echo "site/src/content/projects-cn is private source material and must not be published on main"
+            exit 1
+          fi
+          for path in projects research design; do
+            if [ -n "$(git ls-files "$path")" ]; then
+              echo "private path '$path' must not be published on main"
+              exit 1
+            fi
+          done
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

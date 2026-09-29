@@ -17,3 +17,6 @@ site/.private/
 # Local agent instructions
 site/AGENTS.md
 site/CLAUDE.md
+
+# Undeployed content sets (live on the private work branch)
+site/src/content/projects-cn/
