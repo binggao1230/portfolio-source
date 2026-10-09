@@ -1,13 +1,13 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
 import { topics } from '../data/topics';
+import { getPublishedProjects } from '../data/projects';
 
 const markdownText = (value: string) => value.replace(/[\r\n]+/g, ' ').trim();
 
 export const GET: APIRoute = async ({ site }) => {
   if (!site) throw new Error('astro.config.mjs must define site');
 
-  const projects = (await getCollection('projects')).sort(
+  const projects = (await getPublishedProjects()).sort(
     (a, b) => b.data.updated.localeCompare(a.data.updated) || a.data.order - b.data.order,
   );
   const url = (path: string) => new URL(path, site).toString();

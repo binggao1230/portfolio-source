@@ -11,6 +11,7 @@ role: 'Thermal Systems & Numerical Modeling'
 team: 'Vinci Eco Drive — ESILV FSAE'
 duration: 'E3 / E7 / E8 numerical baselines across three generations'
 featured: false
+hidden: true
 order: 2
 studySequence: 5
 heroImage: '/images/projects/fsae-cooling/thermal-screen.svg'

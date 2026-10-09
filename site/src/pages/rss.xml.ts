@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+import { getPublishedProjects } from '../data/projects';
 
 const escapeXml = (value: string) => value.replace(/[<>&'\"]/g, (char) => ({
   '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;',
@@ -7,7 +7,7 @@ const escapeXml = (value: string) => value.replace(/[<>&'\"]/g, (char) => ({
 
 export const GET: APIRoute = async ({ site }) => {
   if (!site) throw new Error('astro.config.mjs must define site');
-  const projects = (await getCollection('projects')).sort(
+  const projects = (await getPublishedProjects()).sort(
     (a, b) => b.data.date.localeCompare(a.data.date) || a.data.order - b.data.order,
   );
   const items = projects.map((project) => {

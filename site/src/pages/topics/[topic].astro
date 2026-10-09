@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection } from 'astro:content';
 import { topics, type Topic } from '../../data/topics';
+import { getPublishedProjects } from '../../data/projects';
 
 export function getStaticPaths() {
   return topics.map((topic) => ({
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { topic } = Astro.props;
-const projects = (await getCollection('projects'))
+const projects = (await getPublishedProjects())
   .filter((project) => project.data.categories.includes(topic.slug))
   .sort((a, b) => b.data.updated.localeCompare(a.data.updated) || a.data.order - b.data.order);
 ---

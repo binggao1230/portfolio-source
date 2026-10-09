@@ -2,9 +2,9 @@
 import Base from '../layouts/Base.astro';
 import { profile } from '../data/profile';
 import { cvDownloads } from '../data/cv';
-import { getCollection } from 'astro:content';
+import { getPublishedProjects } from '../data/projects';
 
-const projects = (await getCollection('projects')).sort(
+const projects = (await getPublishedProjects()).sort(
   (a, b) => b.data.date.localeCompare(a.data.date) || (b.data.studySequence ?? 0) - (a.data.studySequence ?? 0) || a.data.order - b.data.order,
 );
 

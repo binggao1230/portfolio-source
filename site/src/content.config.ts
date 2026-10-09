@@ -35,6 +35,8 @@ const projectSchema = z.object({
   }).optional(),
   nda: z.boolean().default(false),
   featured: z.boolean().default(false),
+  /** Keep the source in the repository but remove the project from the built site. */
+  hidden: z.boolean().default(false),
   order: z.number().default(99),
   studySequence: z.number().int().positive().optional(),
   github: z.string().url().optional(),

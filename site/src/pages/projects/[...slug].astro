@@ -1,9 +1,9 @@
 ---
 import ProjectDetail from '../../components/ProjectDetail.astro';
-import { getCollection } from 'astro:content';
+import { getPublishedProjects } from '../../data/projects';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = await getPublishedProjects();
 
   return projects.map((project) => {
     const relatedProjects = projects

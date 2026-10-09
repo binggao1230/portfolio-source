@@ -16,6 +16,17 @@ ORIGIN = "https://binggao.dev"
 INDEXNOW_KEY = "c68a268aff5d62140ef3185062c68b9d"
 FORBIDDEN_HOSTS = ("localhost", "127.0.0.1", "192.168.")
 TOPIC_LINK_PATTERN = re.compile(r'<a\b[^>]+href=["\']/topics/[^"\']+["\']', re.I)
+CONTENT_DIR = Path(__file__).resolve().parents[1] / "src" / "content" / "projects"
+
+
+def hidden_slugs() -> set[str]:
+    """Slugs whose front matter sets `hidden: true`; they must not reach the built site."""
+    slugs: set[str] = set()
+    for path in CONTENT_DIR.glob("*.md"):
+        parts = path.read_text(encoding="utf-8").split("---", 2)
+        if len(parts) >= 3 and re.search(r"^hidden:\s*true\s*$", parts[1], re.M):
+            slugs.add(path.stem)
+    return slugs
 
 
 class SeoParser(HTMLParser):
@@ -210,6 +221,15 @@ def main() -> int:
             target = static_target(root, location)
             if not target.exists():
                 failures.append(f"sitemap.xml URL {location} has no static target")
+
+    for slug in sorted(hidden_slugs()):
+        page_path = root / "projects" / slug / "index.html"
+        if page_path.exists():
+            failures.append(f"hidden project {slug!r} still builds a page")
+        if (root / "sitemap.xml").exists() and f"{ORIGIN}/projects/{slug}/" in (root / "sitemap.xml").read_text(encoding="utf-8"):
+            failures.append(f"hidden project {slug!r} is still in sitemap.xml")
+        if (root / "llms.txt").exists() and f"{ORIGIN}/projects/{slug}/" in (root / "llms.txt").read_text(encoding="utf-8"):
+            failures.append(f"hidden project {slug!r} is still in llms.txt")
 
     robots_path = root / "robots.txt"
     if not robots_path.exists():
