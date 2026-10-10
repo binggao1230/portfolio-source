@@ -1,5 +1,5 @@
 ---
-title: 'Cooling System Design for a Formula SAE Car, from Zero to One'
+title: 'Cooling System Design for a Formula Society of Automotive Engineers Car, from Zero to One'
 year: 2026
 date: '2026-10-06'
 updated: '2026-10-10'
