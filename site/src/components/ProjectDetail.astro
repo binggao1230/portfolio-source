@@ -6,10 +6,9 @@ import { render, type CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'projects'>;
-  relatedProjects: CollectionEntry<'projects'>[];
 }
 
-const { project, relatedProjects } = Astro.props;
+const { project } = Astro.props;
 const d = project.data;
 const { Content } = await render(project);
 const basePath = '/#projects';
@@ -89,21 +88,5 @@ const basePath = '/#projects';
       prose-strong:text-ink">
       <Content />
     </div>
-    {relatedProjects.length > 0 && (
-      <aside class="mt-16 border-t border-edge-soft pt-8" aria-labelledby="related-projects-heading">
-        <h2 id="related-projects-heading" class="text-2xl font-medium tracking-tight text-ink">Related projects</h2>
-        <div class="mt-5 grid gap-4 sm:grid-cols-3">
-          {relatedProjects.map((relatedProject) => (
-            <a
-              href={`/projects/${relatedProject.id}/`}
-              class="rounded-xl border border-edge p-4 transition-colors hover:border-accent"
-            >
-              <h3 class="font-medium leading-snug text-ink">{relatedProject.data.title}</h3>
-              <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{relatedProject.data.summary}</p>
-            </a>
-          ))}
-        </div>
-      </aside>
-    )}
   </article>
 </Base>
