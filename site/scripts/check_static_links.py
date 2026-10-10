@@ -50,6 +50,22 @@ def local_target(root: Path, page: Path, value: str) -> Path | None:
         return candidate
     return candidate / "index.html"
 
+def redirected_paths(root: Path) -> set[str]:
+    """Paths handled by `_redirects` are valid link targets without a file behind them."""
+    paths: set[str] = set()
+    rules = root / "_redirects"
+    if not rules.exists():
+        return paths
+    for line in rules.read_text(encoding="utf-8").splitlines():
+        line = line.split("#", 1)[0].strip()
+        if not line:
+            continue
+        source = line.split()[0]
+        if source.startswith("/"):
+            paths.add(source.rstrip("/") or "/")
+    return paths
+
+
 def validate_feed_links(root: Path, path: Path, failures: list[str]) -> None:
     if not path.exists():
         failures.append(f"missing {path.name}")
@@ -74,6 +90,7 @@ def main() -> int:
         parser.error(f"build directory does not exist: {root}")
 
     failures: list[str] = []
+    redirects = redirected_paths(root)
     pages = sorted(root.rglob("*.html"))
     for page in pages:
         source = page.read_text(encoding="utf-8")
@@ -90,6 +107,9 @@ def main() -> int:
         if "Sample project — replace with yours" in source or "Sample data" in source:
             failures.append(f"{relative}: obsolete sample UI remains")
         for tag, value in links.links:
+            parsed = urlsplit(value)
+            if parsed.path and (parsed.path.rstrip("/") or "/") in redirects:
+                continue
             target = local_target(root, page, value)
             if target is not None and not target.exists():
                 failures.append(f"{relative}: <{tag}> {value} -> missing {target.relative_to(root)}")

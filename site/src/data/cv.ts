@@ -8,10 +8,12 @@ export interface CvDownload {
   url: string;
 }
 
-/** Canonical PDF editions; the first entry is the no-JavaScript default. */
+/** Canonical PDF editions; the first entry is the no-JavaScript default.
+ *  `/cv/en` and `/cv/fr` are 302 redirects (see public/_redirects) so their
+ *  request counts are exactly the button clicks. */
 export const cvDownloads: CvDownload[] = [
-  { lang: 'en', label: 'English CV', url: '/cv/Bing_GAO_CV_EN.pdf?ref=cv-button' },
-  { lang: 'fr', label: 'French CV', url: '/cv/Bing_GAO_CV_FR.pdf?ref=cv-button' },
+  { lang: 'en', label: 'English CV', url: '/cv/en' },
+  { lang: 'fr', label: 'French CV', url: '/cv/fr' },
 ];
 
 export interface CvContent {
