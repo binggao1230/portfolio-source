@@ -10,8 +10,8 @@ export interface CvDownload {
 
 /** Canonical PDF editions; the first entry is the no-JavaScript default. */
 export const cvDownloads: CvDownload[] = [
-  { lang: 'en', label: 'English CV', url: '/cv/Bing_GAO_CV_EN.pdf' },
-  { lang: 'fr', label: 'French CV', url: '/cv/Bing_GAO_CV_FR.pdf' },
+  { lang: 'en', label: 'English CV', url: '/cv/Bing_GAO_CV_EN.pdf?ref=cv-button' },
+  { lang: 'fr', label: 'French CV', url: '/cv/Bing_GAO_CV_FR.pdf?ref=cv-button' },
 ];
 
 export interface CvContent {

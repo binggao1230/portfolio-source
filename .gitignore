@@ -9,14 +9,20 @@
 # Private source material and working data
 196479.MP4
 avatar_faroe2.jpg
+/design/
 /f1_photos/
 /projects/
+/research/
 /scripts/
 site/.private/
+
+# Private working notes; only the publishing policy is public
+/docs/*
+!/docs/publishing.md
 
 # Local agent instructions
 site/AGENTS.md
 site/CLAUDE.md
 
-# Undeployed content sets (live on the private work branch)
+# Undeployed content sets
 site/src/content/projects-cn/
