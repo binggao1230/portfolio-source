@@ -91,6 +91,9 @@ ALLOWLIST = {
     'projects/space-rider/versions/v5.044-wide.jpg',
     'projects/space-rider/versions/v5.046-wide.jpg',
     'projects/space-rider/versions/v5.049-wide.jpg',
+    # GitHub contributions heatmap — GitHub's dark-theme card, embedded by the
+    # interview-intro deck (binggao.dev/intro slide 4)
+    'github-stats-binggao1230.png',
 }
 
 
