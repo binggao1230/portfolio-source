@@ -133,11 +133,12 @@ def main() -> int:
         if any(host in source for host in FORBIDDEN_HOSTS):
             failures.append(f"{relative}: contains a local host reference")
 
-        # public/intro is a vendored Slidev SPA shell (decks/interview-intro
-        # built by slidev-decks/scripts/build_interview_intro_web.sh): slide
-        # content renders client-side, so the h1 / canonical / og / JSON-LD
-        # rules for Astro pages do not apply to it.
-        if relative == Path("intro/index.html"):
+        # public/intro and public/intro-fr are vendored Slidev SPA shells
+        # (decks/interview-intro*, built by
+        # slidev-decks/scripts/build_interview_intro_web.sh): slide content
+        # renders client-side, so the h1 / canonical / og / JSON-LD rules for
+        # Astro pages do not apply to them.
+        if relative in {Path("intro/index.html"), Path("intro-fr/index.html")}:
             continue
 
         parser = SeoParser()
